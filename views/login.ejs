@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+    <div class="container">
+        <div class="background">
+            <img src="/images/airport.webp" alt="Airport background">
+        </div>
+        <div class="login-box">
+            <form action="/login" method="POST">
+                <h2>Log In</h2>
+                <% if (errorMessage) { %> <!-- Check if there is an error message -->
+                    <div class="error-message"><%= errorMessage %></div> <!-- Display the error message -->
+                <% } %> 
+                <div class="input-box">
+                    <input type="email" id="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="input-box">
+                    <input type="password" id="password" name="password" placeholder="Password" required>
+                </div>
+                <a href="#" class="forget-password">Forget Password</a>
+                <button type="submit" class="login-btn">Log In</button>
+                <div class="signup-option">
+                    <span>Or </span><a href="/signup">Sign up</a>
+                </div>
+            </form>          
+        </div>
+    </div>
+</body>
+</html>

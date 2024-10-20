@@ -1,0 +1,117 @@
+/* header.css */
+
+/* General Styling for Poppins */
+body, h1, h2, h3, h4, h5, h6, p, a, span, li, button, input, textarea {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Header Styling */
+header {
+    background-color: #ffffff;
+    padding: 10px 20px;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add subtle shadow for depth */
+    position: fixed; /* Make the header fixed */
+    top: 0; /* Position it at the top of the page */
+    left: 0; /* Align to the left */
+    right: 0; /* Align to the right */
+    z-index: 1000; /* Ensure it stays above other content */
+}
+
+/* Prevent the body content from being hidden under the navbar */
+body {
+    padding-top: 70px; /* Add top padding equal to the height of the navbar */
+}
+
+/* Styling for the navigation */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+/* Styling for the logo container */
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo h1 {
+    margin: 0;
+    font-size: 24px; /* Adjust the font size for better visibility */
+    font-family: 'Poppins', sans-serif; /* Apply Poppins to logo */
+}
+
+/* Styling for the logo image */
+.logo-img {
+    width: 45px; /* Adjust the size of the logo */
+    height: 45px; /* Make height and width the same to create a perfect circle */
+    border-radius: 50%; /* This makes the image circular */
+    object-fit: cover; /* Ensures the image covers the entire area without stretching */
+    margin-right: 15px; /* Space between the logo and the heading */
+}
+
+/* Navigation menu styles */
+nav {
+    flex-grow: 1; /* Allow nav to take up available space */
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-end; /* Align menu items to the right */
+}
+
+nav ul li {
+    margin-left: 50px; /* Space between menu items */
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    padding: 10px 15px; /* Add vertical and horizontal padding for spacing */
+    transition: background-color 0.3s; /* Smooth transition for hover effects */
+    font-family: 'Poppins', sans-serif; /* Apply Poppins to navigation links */
+}
+
+nav ul li a:hover {
+    background-color: #f0f0f0; /* Light background on hover */
+    border-radius: 5px; /* Rounded corners on hover */
+}
+
+/* Button styles */
+.apply-btn, .btn {
+    background-color: #6BA6CF;
+    color: white;
+    padding: 10px 40px; /* Adjust padding for a longer button */
+    border-radius: 50px; /* Rounded, pill-like button */
+    text-decoration: none;
+    position: relative; /* Necessary for positioning the arrow */
+    transition: background-color 0.3s; /* Smooth color transition */
+    font-family: 'Poppins', sans-serif; /* Apply Poppins to buttons */
+}
+
+/* Arrow for Apply Us Button */
+.apply-btn::after, .btn::after {
+    content: '→'; /* Right arrow character */
+    position: absolute;
+    right: 15px; /* Position the arrow at the end of the button */
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px; /* Adjust the arrow size */
+    color: white; /* Arrow color */
+}
+
+/* Button hover state */
+.apply-btn:hover, .btn:hover {
+    background-color: #5a9bcf; /* Darker shade on hover */
+    /* No change in shape here */
+    border-radius: 50px; /* Maintain the rounded shape */
+}
