@@ -96,9 +96,19 @@ router.get('/userdashboard', (req, res) => {
     res.render('userdashboard', { user: req.session.user }); // Pass user info to the dashboard
 });
 
-router.get('/admindashboard', (req, res) => {
-    res.render('admindashboard'); // Render the admin dashboard view
+router.get('/admindashboard', async (req, res) => {
+    try {
+        // Count the total number of users
+        const totalUsers = await User.countDocuments({});
+        
+        // Pass the total user count to the EJS template
+        res.render('admindashboard', { totalUsers });
+    } catch (error) {
+        console.error('Error fetching total users:', error);
+        res.status(500).send('Internal Server Error');
+    }
 });
+
 
 router.get('/appointment', (req, res) => {
     res.render('appointment'); // Render the admin dashboard view

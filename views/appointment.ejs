@@ -17,58 +17,59 @@
             background-color: #f5f5f5;
         }
         .sidebar {
-            width: 18%;
+            width: 20%; /* Adjust to match admindashboard */
             background-color: #253947;
             color: white;
-            padding: 10px;
+            padding: 20px; /* Increased padding to match admindashboard */
         }
         .sidebar h2 {
-            margin-bottom: 10px;
-            font-size: 16px;
+            margin-bottom: 20px; /* Same margin as admindashboard */
         }
         .sidebar ul {
             list-style-type: none;
-            font-size: 18px; /* Increased font size for sidebar items */
         }
         .sidebar ul li {
-            padding: 8px 0;
+            padding: 10px 0; /* Same padding as admindashboard */
+            font-size: 18px; /* Font size matches admindashboard */
         }
-        .sidebar ul li:hover {
-            cursor: pointer;
-            background-color: #3e5062;
-        }
-        .sidebar a {
+        .sidebar ul li a {
             color: white;
             text-decoration: none;
+            display: block;
+            padding: 10px;
+            border-radius: 5px; /* Rounded corners as in admindashboard */
         }
-        /* Removed the green circle and display logo image directly */
+        .sidebar ul li a:hover {
+            background-color: #3e5062; /* Darker hover effect like admindashboard */
+        }
+        /* Logo styling (Same as admindashboard) */
         .sidebar .logo {
-            width: 40px;
-            height: 40px;
-            margin-bottom: 15px;
+            width: 50px;
+            height: 50px;
+            margin-bottom: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
         .sidebar .logo img {
-            width: 100%; /* Make the image fill the container */
+            width: 100%;
             height: auto;
-            border-radius: 50%; /* Optional: make the logo circular */
+            border-radius: 50%; /* Circular logo as in admindashboard */
         }
         .content {
-            width: 82%;
-            padding: 20px;
-        }
-        .table-container {
             background-color: white;
+            width: 80%; /* Width matches admindashboard */
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow for table container */
+        }
+        h3 {
+            margin-bottom: 20px; /* Add some space before the table */
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 16px; /* Increased font size for table content */
+            font-size: 16px;
         }
         table th, table td {
             padding: 10px;
@@ -91,7 +92,7 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <!-- Removed green circle and added logo directly -->
+        <!-- Logo as in admindashboard -->
         <div class="logo">
             <img src="images/logo.png" alt="Logo"> <!-- Path to the logo -->
         </div>
