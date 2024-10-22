@@ -27,15 +27,24 @@ router.post('/login', async (req, res) => {
             req.session.errorMessage = 'Invalid credentials'; // Set error message
             return res.redirect('/login'); // Redirect back to login page
         }
-        req.session.user = user; // Store user info in session
+
+        // Store user info in session
+        req.session.user = user;
         console.log('User logged in:', user);
-        res.redirect('/'); // Redirect to index.ejs on successful login
+
+        // Redirect based on user role
+        if (user.role === 'admin') {
+            res.redirect('/admindashboard'); // Redirect to admindashboard if the user is an admin
+        } else {
+            res.redirect('/userdashboard'); // Redirect to userdashboard for regular users
+        }
     } catch (err) {
         console.error('Error during login:', err);
         req.session.errorMessage = 'An error occurred during login'; // Set error message
         res.redirect('/login'); // Redirect back to login page
     }
 });
+
 
 // Route for sign-up page
 router.get('/signup', (req, res) => {
@@ -73,6 +82,34 @@ router.post('/signup', async (req, res) => {
         console.error('Error registering user:', error);
         res.status(500).send('Internal Server Error');
     }
+});
+
+// Route for user dashboard (ensure user is authenticated)
+router.get('/userdashboard', (req, res) => {
+    // Check if user is logged in
+    if (!req.session.user) {
+        req.session.errorMessage = 'You must be logged in to access the dashboard'; // Set error message
+        return res.redirect('/login'); // Redirect to login page if not authenticated
+    }
+
+    // If the user is logged in, render the dashboard
+    res.render('userdashboard', { user: req.session.user }); // Pass user info to the dashboard
+});
+
+router.get('/admindashboard', (req, res) => {
+    res.render('admindashboard'); // Render the admin dashboard view
+});
+
+router.get('/appointment', (req, res) => {
+    res.render('appointment'); // Render the admin dashboard view
+});
+
+router.get('/message', (req, res) => {
+    res.render('message'); // Render the admin dashboard view
+});
+
+router.get('/history', (req, res) => {
+    res.render('history'); // Render the admin dashboard view
 });
 
 module.exports = router;
