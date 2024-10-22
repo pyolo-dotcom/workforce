@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            display: flex;
+        }
+        .sidebar {
+            width: 20%;
+            background-color: #253947;
+            color: white;
+            height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .sidebar h2 {
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+        }
+        /* Removed the green circle background and styling */
+        .sidebar h2 span {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            display: inline-block;
+            /* No background-color or border-radius */
+        }
+        /* Updated logo container to display image */
+        .sidebar .logo {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .sidebar .logo img {
+            width: 100%; /* Make the image fill the container */
+            height: auto;
+            border-radius: 50%; /* Optional: make the logo circular */
+        }
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin: 20px 0;
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+        }
+        .content {
+            width: 80%;
+            padding: 20px;
+            height: 300px;
+            margin-top: 90px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+        }
+        .card {
+            width: 30%;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+        .card h3 {
+            margin-bottom: 10px;
+        }
+        .card p {
+            margin: 5px 0;
+        }
+        .card .actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .btn-accept {
+            background-color: green;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-decline {
+            background-color: red;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="sidebar">
+            <!-- Remove green circle and directly add the logo -->
+            <div class="logo">
+                <img src="images/logo.png" alt="Logo"> <!-- Path to the logo -->
+            </div>
+            <h2><span></span>Dr. John Simple</h2>
+            <ul>
+                <li><a href="/admindashboard">Dashboard</a></li>
+                <li><a href="/appointment">Appointment</a></li>
+                <li><a href="/message">Message</a></li>
+                <li><a href="/history">History</a></li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <div class="card">
+                <h3>Fullname</h3>
+                <p>Email</p>
+                <p>Subject</p>
+                <p>Message</p>
+                <div class="actions">
+                    <button class="btn-decline">Decline</button>
+                    <button class="btn-accept">Accept</button>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Fullname</h3>
+                <p>Email</p>
+                <p>Subject</p>
+                <p>Message</p>
+                <div class="actions">
+                    <button class="btn-decline">Decline</button>
+                    <button class="btn-accept">Accept</button>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Fullname</h3>
+                <p>Email</p>
+                <p>Subject</p>
+                <p>Message</p>
+                <div class="actions">
+                    <button class="btn-decline">Decline</button>
+                    <button class="btn-accept">Accept</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

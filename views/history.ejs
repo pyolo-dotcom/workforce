@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+        .sidebar {
+            width: 18%;
+            background-color: #253947;
+            color: white;
+            padding: 10px;
+        }
+        .sidebar h2 {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        .sidebar ul {
+            list-style-type: none;
+            font-size: 18px; /* Increased font size */
+        }
+        .sidebar ul li {
+            padding: 8px 0;
+        }
+        .sidebar ul li:hover {
+            cursor: pointer;
+            background-color: #3e5062;
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+        }
+        /* Updated Logo styling (No green circle) */
+        .sidebar .logo {
+            width: 40px; /* Adjust the size of the logo */
+            height: 40px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .sidebar .logo img {
+            width: 100%; /* Make the image fill the container */
+            height: auto;
+            border-radius: 50%; /* Make it circular if you want */
+        }
+        .content {
+            width: 82%;
+            padding: 20px;
+        }
+        .table-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        table th, table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        table th {
+            background-color: #3e5062;
+            color: white;
+        }
+        .no-history {
+            padding: 20px;
+            font-size: 16px;
+            color: #555;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <!-- Add your logo image here -->
+            <img src="images/logo.png" alt="Logo"> <!-- Path to the logo -->
+        </div>
+        <h2>Dr. John Simple</h2>
+        <ul>
+            <li><a href="/admindashboard">Dashboard</a></li>
+            <li><a href="/appointment">Appointment</a></li>
+            <li><a href="/message">Message</a></li>
+            <li><a href="/history">History</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <div class="table-container">
+            <h3>History</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Service</th>
+                        <th>Name</th>
+                        <th>Number</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Message</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="7" class="no-history">No history found</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

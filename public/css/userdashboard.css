@@ -1,0 +1,340 @@
+/* style.css */
+
+/* General Styles */
+body, h1, h2, h3, h4, h5, h6, p, a, span, li, button, input, textarea {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h2, h3 {
+    text-align: flex;
+    color: white;
+}
+
+/* Hero section */
+.hero {
+    background-image: url('/images/airport.webp');
+    background-size: cover;
+    background-position: center;
+    height: 60vh;
+    display: flex;
+    justify-content: flex-start; /* Align content to the left */
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+.hero-text h1 {
+    color: #286A98;
+    font-size: 36px;
+}
+
+.hero-text h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.hero-text p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.hero-text {
+    max-width: 600px; /* Adjust as needed */
+    margin-left: 50px; /* Adds space from the left */
+    text-align: left; /* Aligns text to the left */
+}
+
+/* Add arrow to the Apply Now button */
+.btn {
+    position: relative;
+    padding-right: 35px; /* Space for the arrow */
+    text-decoration: none;
+    display: inline-block;
+    background-color: #286A98; /* Button background color */
+    color: white;
+    font-size: 18px; /* Increased font size */
+    border-radius: 50px; /* Increase for more rounded shape */
+    padding: 20px 50px; /* Increased padding for a more elongated oval shape */
+    transition: background-color 0.3s ease;
+    min-width: 220px; /* Minimum width for an even longer button */
+    text-align: center; /* Ensure text is centered */
+}
+
+.btn::after {
+    content: '→'; /* Right arrow character */
+    position: absolute;
+    right: 25px; /* Adjusted arrow position */
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 22px; /* Larger arrow */
+    color: white; /* Arrow color */
+    transition: right 0.3s ease;
+}
+
+/* Button hover state */
+.btn:hover {
+    background-color: #218838;
+}
+
+.btn:hover::after {
+    right: 30px; /* Slightly move the arrow on hover */
+}
+
+/* Grid styling */
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 20px;
+}
+
+.grid-item {
+    flex: 1;
+    min-width: 200px;
+}
+
+.grid-item img {
+    width: 100%;
+    height: auto;
+}
+
+/* Jobs section */
+.jobs {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.jobs h3 {
+    font-size: 24px;
+    color: black;
+    margin-bottom: 30px;
+}
+
+.jobs h3 span {
+    color: #8ACD1F;
+    font-weight: bold;
+}
+
+/* Job cards */
+.job-cards {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.card {
+    flex: 1;
+    min-width: 300px;
+    max-width: 350px;
+    margin: 10px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.card img {
+    width: 100%;
+    height: 200px; /* Set a fixed height for uniformity */
+    object-fit: cover; /* This will ensure the image covers the space without distortion */
+    border-radius: 10px;
+}
+
+.card h4 {
+    font-size: 20px;
+    margin: 15px 0;
+}
+
+.card p {
+    font-size: 16px;
+    color: #666;
+}
+
+.card .btn {
+    margin-top: 10px;
+}
+
+/* Founders Section */
+.founders-section {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.founder-text {
+    color: black; /* Black text for the description */
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.founder-title {
+    color: black; /* Black text for "FOUNDER" */
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.founders {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.founder {
+    text-align: center;
+    max-width: 300px;
+    margin: 100px;
+}
+
+/* Increase the size of the CEO and President's images */
+.founder img {
+    width: 250px; /* Increased width */
+    height: 250px; /* Increased height */
+    border-radius: 50%; /* Keep the image circular */
+    object-fit: cover;
+}
+
+.founder h4 {
+    margin: 10px 0;
+    font-size: 20px;
+}
+
+.founder p {
+    font-size: 14px;
+    color: #666;
+}
+
+.review-container {
+    display: flex;
+    gap: 30px; /* Increased gap between review boxes */
+    justify-content: center;
+    padding: 40px; /* Increased padding around the entire container */
+}
+
+.review-box {
+    background-color: #e0e0e0;
+    border-radius: 15px;
+    padding: 25px; /* Increased padding inside each review box */
+    width: 250px; /* Slightly increased width */
+    text-align: center;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Slightly increased shadow for more depth */
+}
+
+.email {
+    font-weight: bold;
+    margin-bottom: 15px; /* Increased spacing below email */
+}
+
+.review-text {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px; /* Increased spacing below the review text */
+    line-height: 1.6; /* Added line height for better readability */
+}
+
+.rating {
+    font-size: 22px; /* Slightly increased star size */
+    color: #d9ff0d;
+    margin-top: 10px; /* Added margin at the top of the rating */
+}
+
+/* Contact Section */
+.contact-section {
+    padding: 40px 20px;
+    background-color: #f0f0f0;
+}
+
+.contact-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.contact-container p {
+    margin: 10px 0; /* Adds some margin between the paragraphs */
+}
+
+.contact-container i {
+    margin-right: 8px; /* Space between the icon and the text */
+    color: #002366; /* Change color as needed */
+}
+
+.location {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 550px;
+}
+
+.location img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* Styling for the Get in Touch button */
+.contact-form {
+    background-color: white;
+    padding: 30px; /* Increased padding for larger design */
+    border-radius: 15px; /* More rounded corners */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Slightly increased shadow */
+    max-width: 400px;
+    width: 100%;
+}
+
+.contact-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.contact-form input, 
+.contact-form textarea {
+    margin-bottom: 15px;
+    padding: 12px; /* Slightly increased padding for bigger fields */
+    border-radius: 8px; /* More rounded corners */
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+/* "Get in Touch" button green */
+.contact-form button {
+    padding: 15px 20px; /* Increased padding for larger button */
+    background-color: #28a745; /* Green color */
+    color: white;
+    border: none;
+    border-radius: 8px; /* More rounded button */
+    font-size: 18px; /* Larger font */
+    cursor: pointer;
+}
+
+.contact-form button:hover {
+    background-color: #218838;
+}
+
+/* Center and increase size of "Get in Touch" and "Contact Us" */
+.contact-section h2, 
+.contact-section h3 {
+    text-align: center; /* Center the text */
+    margin-bottom: 20px; /* Add space below */
+}
+
+/* Increase size and change color of "Get in Touch" */
+.contact-section h2 { 
+    color: #28a745; /* Green color for "Get in Touch" */
+    font-size: 36px; /* Adjust size as needed */
+}
+
+/* Increase size and change color of "Contact Us" */
+.contact-section h3 {
+    color: black; /* Black color for "Contact Us" */
+    font-size: 28px; /* Adjust size as needed */
+}
