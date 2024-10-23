@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/userdashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>User Dashboard</title>
 </head>
 <body>
@@ -12,15 +13,16 @@
 
     <section class="hero" id="hero">
         <div class="hero-text">
-            <h1>Welcome, <%= user.username %>!</h1>
-            <p>Your email is: <%= user.email %></p>
             <h1>Workforce International Inc.</h1>
             <h2>Your Gateway to Global Careers Without Added Hassle</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo 
-                consequat.</p>
-                <a href="/login" class="btn">Apply Now</a>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <a href="/login" class="btn">Apply Now</a>
         </div>
-    </section>    
+        <div class="user-welcome">
+            <h1>Welcome, <%= user.username %>!</h1>
+            <p>Email: <%= user.email %></p>
+        </div>
+    </section>       
      
     <section class="jobs" id="jobs">
         <h3>Let's Get Right To What You Care About, <span>Our Million Dollar Results.</span></h3>

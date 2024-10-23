@@ -20,7 +20,7 @@ h2, h3 {
     background-position: center;
     height: 60vh;
     display: flex;
-    justify-content: flex-start; /* Align content to the left */
+    justify-content: space-between; /* Distributes space between the two child divs */
     align-items: center;
     color: white;
     text-align: center;
@@ -45,6 +45,23 @@ h2, h3 {
     max-width: 600px; /* Adjust as needed */
     margin-left: 50px; /* Adds space from the left */
     text-align: left; /* Aligns text to the left */
+}
+
+.user-welcome {
+    text-align: left; /* Aligns text to the right */
+    margin-right: 50px; /* Adds space from the right */
+    margin-bottom: 200px;
+}
+
+/* Additional styles for welcome message */
+.user-welcome h1 {
+    font-size: 36px;
+    color: rgb(4, 113, 13); /* Keep this color consistent */
+}
+
+.user-welcome p {
+    font-size: 18px;
+    margin-top: 10px; /* Adds space above the paragraph */
 }
 
 /* Add arrow to the Apply Now button */
