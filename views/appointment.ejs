@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <title>Appointment Page</title>
     <style>
         * {
@@ -11,60 +12,62 @@
             box-sizing: border-box;
         }
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             display: flex;
             height: 100vh;
             background-color: #f5f5f5;
         }
         .sidebar {
-            width: 20%; /* Adjust to match admindashboard */
+            width: 20%;
             background-color: #253947;
             color: white;
-            padding: 20px; /* Increased padding to match admindashboard */
+            padding: 20px;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .logo {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+        .logo img {
+            width: 100%;
+            height: auto;
+            border-radius: 50%;
         }
         .sidebar h2 {
-            margin-bottom: 20px; /* Same margin as admindashboard */
+            font-size: 18px;
+            margin: 0;
         }
         .sidebar ul {
             list-style-type: none;
         }
         .sidebar ul li {
-            padding: 10px 0; /* Same padding as admindashboard */
-            font-size: 18px; /* Font size matches admindashboard */
+            padding: 10px 0;
+            font-size: 18px;
         }
         .sidebar ul li a {
             color: white;
             text-decoration: none;
             display: block;
             padding: 10px;
-            border-radius: 5px; /* Rounded corners as in admindashboard */
+            border-radius: 5px;
         }
         .sidebar ul li a:hover {
-            background-color: #3e5062; /* Darker hover effect like admindashboard */
-        }
-        /* Logo styling (Same as admindashboard) */
-        .sidebar .logo {
-            width: 50px;
-            height: 50px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .sidebar .logo img {
-            width: 100%;
-            height: auto;
-            border-radius: 50%; /* Circular logo as in admindashboard */
+            background-color: #3e5062;
         }
         .content {
             background-color: white;
-            width: 80%; /* Width matches admindashboard */
+            width: 80%;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow for table container */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         h3 {
-            margin-bottom: 20px; /* Add some space before the table */
+            margin-bottom: 20px;
         }
         table {
             width: 100%;
@@ -92,11 +95,12 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <!-- Logo as in admindashboard -->
-        <div class="logo">
-            <img src="images/logo.png" alt="Logo"> <!-- Path to the logo -->
+        <div class="logo-container">
+            <div class="logo">
+                <img src="images/logo.png" alt="Logo">
+            </div>
+            <h2>Workforce Alliance Inc.</h2>
         </div>
-        <h2>Dr. John Simple</h2>
         <ul>
             <li><a href="/admindashboard">Dashboard</a></li>
             <li><a href="/appointment">Appointment</a></li>
