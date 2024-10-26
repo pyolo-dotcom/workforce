@@ -122,4 +122,12 @@ router.get('/history', (req, res) => {
     res.render('history'); // Render the admin dashboard view
 });
 
+router.get('/confirmation', (req, res) => {
+    res.render('confirmation'); // Render the admin dashboard view
+});
+
+router.get('/client-info', (req, res) => {
+    res.render('client-info'); // Render the admin dashboard view
+});
+
 module.exports = router;

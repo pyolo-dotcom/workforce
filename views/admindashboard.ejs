@@ -6,10 +6,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <title>Admin Dashboard</title>
     <style>
+        /* Reset and body styles */
         * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         body {
             font-family: 'Poppins', sans-serif;
@@ -17,128 +18,139 @@
             height: 100vh;
             background-color: #f5f5f5;
         }
+
+        /* Sidebar styling */
         .sidebar {
             width: 20%;
             background-color: #253947;
             color: white;
             padding: 20px;
         }
-
         .logo-container {
-            display: flex; /* Display logo and text side by side */
-            align-items: center; /* Align them vertically */
-            margin-bottom: 20px; /* Add some space below */
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
         }
-
         .logo {
-            width: 50px; /* Adjust the size of the logo */
+            width: 50px;
             height: 50px;
-            margin-right: 10px; /* Add space between logo and text */
+            margin-right: 10px;
         }
-
         .logo img {
-            width: 100%; /* Make the image fill the container */
+            width: 100%;
             height: auto;
-            border-radius: 50%; /* Make it circular if you prefer */
+            border-radius: 50%;
         }
-
         .sidebar h2 {
-            font-size: 18px; /* Adjust the font size as needed */
-            margin: 0; /* Remove default margins */
+            font-size: 18px;
+            margin: 0;
         }
-
         .sidebar ul {
             list-style-type: none;
         }
-
         .sidebar ul li {
             padding: 10px 0;
             font-size: 18px;
         }
-
         .sidebar ul li a {
-            color: white; /* Text color remains white */
+            color: white;
             text-decoration: none;
             display: block;
             padding: 10px;
-            border-radius: 5px; /* Optional: Adds rounded corners */
+            border-radius: 5px;
         }
-
         .sidebar ul li a:hover {
-            background-color: #3e5062; /* Darker hover effect */
+            background-color: #3e5062;
         }
 
+        /* Main content styling */
         .content {
-            background-color: white;
             width: 80%;
             padding: 20px;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            grid-gap: 20px;
+            display: flex;
+            flex-direction: column; /* Keep the content in a column layout */
+            gap: 20px; /* Space between items */
         }
-
-        /* Center the content of the box */
-        .content .box {
-            background-color: #e0e0e0;
+        .row {
+            display: flex; /* Use flexbox for the row */
+            justify-content: space-between; /* Space between items */
+            gap: 20px; /* Space between boxes */
+        }
+        .box {
+            background-color: #c1c6fa;
             padding: 25px;
             border-radius: 10px;
             text-align: center;
-            height: 200px;
-            display: flex; /* Add this to enable flexbox */
-            flex-direction: column; /* Stack items vertically */
-            justify-content: center; /* Center items vertically */
-            align-items: center; /* Center items horizontally */
+            flex: 1; /* Allow boxes to grow equally */
         }
-
-        /* Make the total user number bigger */
         .total-users-number {
-            font-size: 48px; /* Adjust the size as needed */
+            font-size: 36px;
             font-weight: bold;
-            color: #333; /* Customize the color */
+            color: #333;
         }
-
         .box h3 {
-            margin-bottom: 10px; /* Add spacing between title and number */
-            font-size: 24px; /* Adjust the title font size */
+            font-size: 20px;
+            color: #333;
         }
 
+        /* Appointment section styling */
         .appointment-section {
-            grid-column: span 2;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-gap: 20px;
+            width: 100%; /* Use full width */
+            padding: 20px;
+            margin-top: 20px; /* Add some space between content and appointment section */
+            display: flex;
+            flex-direction: column; /* Use column layout */
+            gap: 20px; /* Space between appointment boxes */
         }
-
+        .appointment-row {
+            display: flex; /* Use flexbox for the appointment row */
+            justify-content: space-between; /* Space between appointment boxes */
+            gap: 20px; /* Space between appointment boxes */
+        }
         .appointment-box {
             background-color: #e0e0e0;
-            padding: 15px; /* Reduced padding */
+            padding: 15px;
             border-radius: 10px;
-            height: 500px; /* Fixed height for better alignment */
+            flex: 1; /* Allow boxes to grow equally */
         }
-
         .appointment-box h3 {
+            font-size: 18px;
+            color: #333;
             margin-bottom: 10px;
         }
-
         .appointment-box table {
             width: 100%;
             border-collapse: collapse;
         }
-
         .appointment-box table th, .appointment-box table td {
             padding: 8px;
             text-align: left;
             border-bottom: 1px solid #ccc;
         }
+
+        .chart-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px; /* Space above the chart */
+        gap: 20px; /* Space between chart and other elements */
+    }
+    .chart-container canvas {
+        width: 100%; /* Full width of the container */
+        height: 300px; /* Set height to 400 pixels */
+    }
+        
     </style>
+    <!-- Include Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    
+
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="logo-container">
             <div class="logo">
-                <img src="images/logo.png" alt="Logo"> <!-- Path to the logo -->
+                <img src="images/logo.png" alt="Logo">
             </div>
             <h2>Workforce Alliance Inc.</h2>
         </div>
@@ -150,53 +162,95 @@
         </ul>
     </div>
 
-
     <!-- Main Content -->
     <div class="content">
-        <!-- Reduced the size of the boxes here -->
-        <div class="box">
-            <h3>Total Users</h3>
-            <div class="total-users-number"><%= totalUsers %></div> <!-- Number will be bigger -->
-        </div>        
-        <div class="box">
-            <h3>Appointment</h3>
-        </div>
-        <div class="box">
-            <h3>Message</h3>
+        <div class="row">
+            <div class="box">
+                <h3>Total Users</h3>
+                <div class="total-users-number"><%= totalUsers %></div>
+            </div>
+            <div class="box">
+                <h3>Appointment</h3>
+            </div>
+            <div class="box">
+                <h3>Message</h3>
+            </div>
         </div>
 
-        <!-- Appointment Section -->
+        <!-- Appointment Details -->
         <div class="appointment-section">
-            <div class="appointment-box">
-                <h3>Appointment</h3>
-                <table>
-                    <tr>
-                        <th>Name</th>
-                        <th>Status</th>
-                    </tr>
-                    <tr>
-                        <td>John Doe</td>
-                        <td>Pending</td>
-                    </tr>
-                    <!-- Add more rows as needed -->
-                </table>
+            <div class="appointment-row">
+                <div class="appointment-box">
+                    <h3>Appointment</h3>
+                    <table>
+                        <tr>
+                            <th>Name</th>
+                            <th>Status</th>
+                        </tr>
+                        <tr>
+                            <td>John Doe</td>
+                            <td>Pending</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="appointment-box">
+                    <h3>Today's Appointment</h3>
+                    <table>
+                        <tr>
+                            <th>Name</th>
+                            <th>Status</th>
+                        </tr>
+                        <tr>
+                            <td>Jane Smith</td>
+                            <td>Confirmed</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
-            <div class="appointment-box">
-                <h3>Today's Appointment</h3>
-                <table>
-                    <tr>
-                        <th>Name</th>
-                        <th>Status</th>
-                    </tr>
-                    <tr>
-                        <td>Jane Smith</td>
-                        <td>Confirmed</td>
-                    </tr>
-                    <!-- Add more rows as needed -->
-                </table>
-            </div>
+        </div>
+
+        <!-- Chart Section -->
+        <div class="chart-container">
+            <canvas id="yearlyDataChart"></canvas>
         </div>
     </div>
 
+    <!-- JavaScript to create the bar chart -->
+    <script>
+                const ctx = document.getElementById('yearlyDataChart').getContext('2d');
+        const yearlyDataChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['2020', '2021', '2022', '2023', '2024'],
+                datasets: [{
+                    label: 'Total Users',
+                    data: [150, 200, 250, 300, 350],
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true, // Ensure responsiveness
+                maintainAspectRatio: false, // Allow width and height to be set independently
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Year'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'User Count'
+                        }
+                    }
+                }
+            }
+        });
+
+    </script>
 </body>
 </html>
