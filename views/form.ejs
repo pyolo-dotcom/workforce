@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workforce International Inc.</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            position: relative;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 50%;
+        }
+        .back-arrow {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            text-decoration: none;
+            font-size: 20px;
+            color: #333;
+        }
+        .container h2 {
+            text-align: center;
+            margin-top: 30px; /* To add space below the back arrow */
+        }
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        /* Specific classes for each form group */
+        .last-name-group,
+        .first-name-group,
+        .middle-name-group,
+        .dob-group,
+        .marital-status-group,
+        .gender-group,
+        .mobile-phone-group,
+        .job-group {
+            flex: 1;
+            margin-right: 10px;
+        }
+        .last-name-group label,
+        .first-name-group label,
+        .middle-name-group label,
+        .dob-group label,
+        .marital-status-group label,
+        .gender-group label,
+        .mobile-phone-group label,
+        .job-group label {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 5px;
+            display: block;
+        }
+        .last-name-group input,
+        .first-name-group input,
+        .middle-name-group input {
+            width: 85%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .marital-status-group select {
+            width: 120%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-left: -70px;
+        }
+        .mobile-phone-group input {
+            width: 98%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .dob-group input {
+            width: 70%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .job-group select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .last-name-group input,
+        .first-name-group input,
+        .middle-name-group input {
+            padding: 20px; /* 20px padding for name fields */
+        }
+        /* Gender-specific styling */
+        .gender-group {
+            display: flex;
+            align-items: center;
+        }
+        .gender-group label {
+            margin-right: 10px;
+        }
+        .gender-group input {
+            margin-right: 5px;
+        }
+        .file-upload {
+            text-align: left;
+            margin-top: 10px;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Back Arrow Link -->
+        <a href="/userdashboard" class="back-arrow">&#8592;</a>
+        
+        <h2>Personal Information</h2>
+        
+        <form action="/submit-form" method="POST" enctype="multipart/form-data">
+            <!-- Row for Last Name, First Name, Middle Name -->
+            <div class="form-row">
+                <div class="last-name-group">
+                    <label for="last-name">Last Name</label>
+                    <input type="text" id="last-name" name="lastName" placeholder="Last Name" required>
+                </div>
+                <div class="first-name-group">
+                    <label for="first-name">First Name</label>
+                    <input type="text" id="first-name" name="firstName" placeholder="First Name" required>
+                </div>
+                <div class="middle-name-group">
+                    <label for="middle-name">Middle Name</label>
+                    <input type="text" id="middle-name" name="middleName" placeholder="Middle Name">
+                </div>
+            </div>
+    
+            <!-- Row for Date of Birth and Marital Status -->
+            <div class="form-row">
+                <div class="dob-group">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" name="dob" required>
+                </div>
+                <div class="marital-status-group">
+                    <label for="marital-status">Marital Status</label>
+                    <select id="marital-status" name="maritalStatus" required>
+                        <option value="single">Single</option>
+                        <option value="married">Married</option>
+                        <option value="divorced">Divorced</option>
+                    </select>
+                </div>
+            </div>
+    
+            <!-- Gender -->
+            <div class="gender-group">
+                <label>Gender</label>
+                <label><input type="radio" name="gender" value="male" required> Male</label>
+                <label><input type="radio" name="gender" value="female"> Female</label>
+            </div>
+    
+            <!-- Mobile Phone -->
+            <div class="mobile-phone-group">
+                <label for="mobile-phone">Mobile Phone</label>
+                <input type="tel" id="mobile-phone" name="mobilePhone" placeholder="Mobile Phone" required>
+            </div>
+    
+            <!-- Job Selection -->
+            <label for="job">Job:</label>
+            <select name="job" required>
+                <% jobs.forEach(job => { %>
+                    <option value="<%= job._id %>"><%= job.title %></option>
+                <% }) %>
+            </select>
+
+    
+            <!-- File Upload -->
+            <div class="file-upload">
+                <p style="margin-bottom: 5px;">Upload your resume:</p>
+                <label for="resume" style="cursor: pointer;">Choose File</label>
+                <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required style="margin-top: 10px;">
+            </div>
+            
+            <!-- Submit Button -->
+            <button type="button" class="submit-btn">Submit</button>
+        </form>         
+    </div>
+    
+    <script>
+        document.querySelector(".submit-btn").addEventListener("click", async (event) => {
+            event.preventDefault(); // Prevent default form submission
+
+            const submitButton = event.target;
+            submitButton.disabled = true; // Disable the button to prevent multiple clicks
+
+            const formElement = submitButton.closest("form"); // Get the form element
+            const formData = new FormData(formElement); // Create FormData from the form
+
+            try {
+                const response = await fetch("/submit-form", {
+                    method: "POST",
+                    body: formData, // Send FormData directly
+                });
+
+                if (response.ok) {
+                    // Assuming the server responds with a redirect URL in the response
+                    window.location.href = '/userdashboard'; // Redirect client-side
+                } else {
+                    alert("Error submitting form.");
+                    submitButton.disabled = false; // Re-enable the button on error
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("An error occurred while submitting the form.");
+                submitButton.disabled = false; // Re-enable the button on error
+            }
+        });
+    </script>
+        
+</body>
+</html>

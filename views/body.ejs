@@ -11,38 +11,63 @@
 <section class="jobs" id="jobs">
     <h3>Let's Get Right To What You Care About, <span>Our Million Dollar Results.</span></h3>
     <div class="job-cards">
-        <div class="card">
-            <img src="/images/kasambahay-law.jpg" alt="Nanny">
-            <h4>Nanny</h4>
-            <p>Taiwan, Poland</p>
-            <a href="#" class="btn">Apply Now</a>
-        </div>
-        <div class="card">
-            <img src="/images/careerbuilder-original-3580.jpg" alt="Electrician">
-            <h4>Electrician</h4>
-            <p>Poland</p>
-            <a href="#" class="btn">Apply Now</a>
-        </div>
-        <div class="card">
-            <img src="/images/factory-workers-needed-2023.jpg" alt="Factory Worker">
-            <h4>Factory Worker</h4>
-            <p>Taiwan</p>
-            <a href="#" class="btn">Apply Now</a>
-        </div>
-        <div class="card">
-            <img src="/images/Everything-You-Need-To-Know-About-Becoming-a-Caregiver-In-Japan-870x600.jpg" alt="Factory Worker">
-            <h4>Caregiver</h4>
-            <p>Poland</p>
-            <a href="#" class="btn">Apply Now</a>
-        </div>
-        <div class="card">
-            <img src="/images/image-1.jpeg" alt="Factory Worker">
-            <h4>Tig Welder</h4>
-            <p>Dubai, Hungary</p>
-            <a href="#" class="btn">Apply Now</a>
+        <% if (jobs && jobs.length > 0) { %>
+            <% jobs.forEach((job) => { %>
+                <div class="card">
+                    <img src="<%= job.image %>" alt="<%= job.title %>">
+                    <h4><%= job.title %></h4>
+                    <p><%= job.location %></p>
+                    <a href="/login" class="btn">Apply Now</a>
+                    <!-- View button to open the modal -->
+                    <button class="btn view-btn" data-job-description="<%= job.description %>">View</button>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p>No jobs available at the moment.</p>
+        <% } %>
+    </div>      
+
+    <!-- Modal structure -->
+    <div class="modal" id="jobModal" style="display:none;">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Job Details</h2>
+            <div id="modal-body">
+                <!-- Job details will be dynamically populated here -->
+            </div>
         </div>
     </div>
 </section>
+
+<script>
+// JavaScript to handle the modal functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const viewButtons = document.querySelectorAll('.view-btn');
+    const modal = document.getElementById('jobModal');
+    const closeButton = document.querySelector('.close-button');
+
+    viewButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const jobDescription = this.getAttribute('data-job-description');
+            // Populate the modal with the job description
+            document.getElementById('modal-body').innerHTML = `<p>${jobDescription}</p>`;
+            modal.style.display = 'block';
+        });
+    });
+
+    closeButton.addEventListener('click', function() {
+        modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+});
+</script>
+
+
 
 <section class="founders-section" id="founder">
     <h2 class="founder-text">We work to serve our reputable foreign clients and provide job opportunities to Filipino workers.</h2>

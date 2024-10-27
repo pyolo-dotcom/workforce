@@ -2,10 +2,24 @@ const express = require('express');
 const bcrypt = require('bcrypt'); // Ensure bcrypt is required
 const router = express.Router();
 const User = require('../models/User'); // Ensure User model is required
+const Job = require('../models/Job');
+const job = require('../routes/job');
 const homeController = require('../controllers/homeController');
+const Form = require('../models/Form'); // Correct path
+const formRoutes = require('./form'); // Make sure this path is correct
+
+router.use(formRoutes);
 
 // Route for home page
-router.get('/', homeController.getHomePage);
+router.get('/', async (req, res) => {
+    try {
+        const jobs = await Job.find(); // Fetch jobs from the database
+        res.render('index', { jobs }); // Pass jobs to the main home template
+    } catch (error) {
+        console.error('Error fetching jobs:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
 
 // Route for login page
 router.get('/login', (req, res) => {
@@ -85,15 +99,21 @@ router.post('/signup', async (req, res) => {
 });
 
 // Route for user dashboard (ensure user is authenticated)
-router.get('/userdashboard', (req, res) => {
+router.get('/userdashboard', async (req, res) => {
     // Check if user is logged in
     if (!req.session.user) {
         req.session.errorMessage = 'You must be logged in to access the dashboard'; // Set error message
         return res.redirect('/login'); // Redirect to login page if not authenticated
     }
 
-    // If the user is logged in, render the dashboard
-    res.render('userdashboard', { user: req.session.user }); // Pass user info to the dashboard
+    try {
+        const jobs = await Job.find(); // Fetch jobs from the database
+        // If the user is logged in, render the dashboard
+        res.render('userdashboard', { user: req.session.user, jobs }); // Pass user info and jobs to the dashboard
+    } catch (error) {
+        console.error('Error fetching jobs for user dashboard:', error);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
 router.get('/admindashboard', async (req, res) => {
@@ -122,12 +142,26 @@ router.get('/history', (req, res) => {
     res.render('history'); // Render the admin dashboard view
 });
 
-router.get('/confirmation', (req, res) => {
-    res.render('confirmation'); // Render the admin dashboard view
+// Route to display all jobs
+router.get('/jobs', async (req, res) => {
+    try {
+        const jobs = await Job.find(); // Retrieve all jobs from the database
+        res.render('jobs', { jobs }); // Pass jobs to the jobs.ejs view
+    } catch (error) {
+        console.error('Error retrieving jobs:', error);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
-router.get('/client-info', (req, res) => {
-    res.render('client-info'); // Render the admin dashboard view
+
+router.get('/form', async (req, res) => {
+    try {
+        const jobs = await Job.find(); // Fetch jobs from the database
+        res.render('form', { jobs }); // Pass jobs to the form view
+    } catch (error) {
+        console.error('Error fetching jobs:', error);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
 module.exports = router;

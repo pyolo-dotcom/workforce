@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Job</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f9; /* Light background */
+            margin: 0;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-container {
+            max-width: 600px; /* Set a max width for the form */
+            margin: 0 auto; /* Center the form */
+            background: #fff; /* White background for the form */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            padding: 20px; /* Inner padding */
+        }
+
+        label {
+            display: block; /* Each label takes a full line */
+            margin: 10px 0 5px; /* Space around labels */
+            font-weight: 500; /* Medium weight for labels */
+        }
+
+        input[type="text"],
+        textarea,
+        input[type="file"] {
+            width: 100%; /* Full width inputs */
+            padding: 10px; /* Inner padding */
+            margin-bottom: 20px; /* Space below each input */
+            border: 1px solid #ccc; /* Border styling */
+            border-radius: 4px; /* Rounded corners */
+            font-size: 16px; /* Increase font size */
+        }
+
+        button {
+            background-color: #5cb85c; /* Green button */
+            color: white; /* White text color */
+            border: none; /* No border */
+            border-radius: 4px; /* Rounded corners */
+            padding: 10px 20px; /* Padding for the button */
+            cursor: pointer; /* Pointer cursor on hover */
+            font-size: 16px; /* Increase font size */
+            transition: background-color 0.3s; /* Transition for hover effect */
+            display: block; /* Center button */
+            width: 100%; /* Full width button */
+        }
+
+        button:hover {
+            background-color: #4cae4c; /* Darker green on hover */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .form-container {
+                padding: 15px; /* Reduce padding on smaller screens */
+            }
+
+            button {
+                padding: 10px; /* Reduce button padding */
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Edit Job</h1>
+    <div class="form-container">
+        <form action="/jobs/edit/<%= job._id %>" method="POST" enctype="multipart/form-data">
+            <label>Job Title:</label>
+            <input type="text" name="title" value="<%= job.title %>" required>
+            
+            <label>Location:</label>
+            <input type="text" name="location" value="<%= job.location %>" required>
+            
+            <label>Description:</label>
+            <textarea name="description" rows="4" required><%= job.description %></textarea>
+            
+            <label>Image:</label>
+            <input type="file" name="image" accept="image/*">
+            
+            <button type="submit">Update Job</button>
+        </form>
+    </div>
+</body>
+</html>
