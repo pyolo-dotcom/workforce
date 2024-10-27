@@ -114,20 +114,24 @@ router.get('/userdashboard', async (req, res) => {
         console.error('Error fetching jobs for user dashboard:', error);
         res.status(500).send('Internal Server Error');
     }
-});
+}); 
 
 router.get('/admindashboard', async (req, res) => {
     try {
         // Count the total number of users
         const totalUsers = await User.countDocuments({});
         
-        // Pass the total user count to the EJS template
-        res.render('admindashboard', { totalUsers });
+        // Count the total number of jobs
+        const totalJobs = await Job.countDocuments({}); // Add this line to count total jobs
+        
+        // Pass the total user count and total job count to the EJS template
+        res.render('admindashboard', { totalUsers, totalJobs }); // Pass both values
     } catch (error) {
-        console.error('Error fetching total users:', error);
+        console.error('Error fetching total users or jobs:', error);
         res.status(500).send('Internal Server Error');
     }
 });
+
 
 
 router.get('/appointment', (req, res) => {

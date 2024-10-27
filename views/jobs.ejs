@@ -133,42 +133,61 @@
             margin-bottom: 20px;
             border-collapse: collapse;
         }
+
         .job-listing-table th, .job-listing-table td {
             padding: 12px;
             text-align: left;
             font-size: 16px;
             border-bottom: 1px solid #ddd;
+            vertical-align: middle; /* Ensures content is vertically centered */
         }
+
         .job-listing-table th {
             background-color: #f2f2f2;
             color: #333;
             font-weight: 600;
         }
+
         .job-listing-table td img {
             width: 50px;
             height: 50px;
             object-fit: cover;
         }
 
+        /* Align action buttons */
+        .job-listing-table td .action-buttons {
+            display: flex;
+            gap: 8px; /* Space between buttons */
+            justify-content: flex-start; /* Align to the left */
+        }
+
         /* Action buttons */
         .edit-btn, .delete-btn {
             text-decoration: none;
-            padding: 8px 12px;
+            padding: 8px 14px;
             border-radius: 5px;
             font-size: 14px;
             cursor: pointer;
             color: white;
+            transition: all 0.3s ease;
+            min-width: 80px; /* Ensure buttons have the same width */
+            text-align: center; /* Center text within the button */
         }
+
         .edit-btn {
             background-color: #4CAF50; /* Green */
-            margin-right: 10px;
+            border: none;
         }
+
         .delete-btn {
             background-color: #f44336; /* Red */
             border: none;
         }
+
+        /* Hover effects */
         .delete-btn:hover, .edit-btn:hover {
-            opacity: 0.8;
+            transform: scale(1.05);
+            opacity: 0.9;
         }
     </style>
 </head>
@@ -212,42 +231,46 @@
         </div>
 
         <!-- Job Listings Table -->
-<h1>Job Listings</h1>
-<table class="job-listing-table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Image</th>
-            <th>Title</th>
-            <th>Location</th>
-            <th>Description</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        <% jobs.forEach((job, index) => { %>
-            <tr>
-                <td><%= index + 1 %></td>
-                <td>
-                    <% if (job.image) { %>
-                        <img src="<%= job.image %>" alt="Job Image" style="width: 50px; height: auto;">
-                    <% } else { %>
-                        <img src="images/default-avatar.png" alt="Default Image" style="width: 50px; height: auto;">
-                    <% } %>
-                </td>
-                <td><%= job.title %></td>
-                <td><%= job.location %></td>
-                <td><%= job.description %></td>
-                <td>
-                    <a href="/jobs/edit/<%= job._id %>" class="edit-btn">Edit</a>
-                    <form action="/jobs/delete/<%= job._id %>" method="POST" style="display:inline;">
-                        <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this job?');">Delete</button>
-                    </form>
-                </td>
-            </tr>
-        <% }) %>
-    </tbody>
-</table>
+        <h1>Job Listings</h1>
+        <table class="job-listing-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Image</th>
+                    <th>Title</th>
+                    <th>Location</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% jobs.forEach((job, index) => { %>
+                    <tr>
+                        <td><%= index + 1 %></td>
+                        <td>
+                            <% if (job.image) { %>
+                                <img src="<%= job.image %>" alt="Job Image" style="width: 50px; height: auto;">
+                            <% } else { %>
+                                <img src="images/default-avatar.png" alt="Default Image" style="width: 50px; height: auto;">
+                            <% } %>
+                        </td>
+                        <td><%= job.title %></td>
+                        <td><%= job.location %></td>
+                        <td><%= job.description %></td>
+                        <td>
+                            <div class="action-buttons">
+                                <form action="/jobs/edit/<%= job._id %>" method="GET" style="display:inline;">
+                                    <button type="submit" class="edit-btn">Edit</button>
+                                </form>
+                                <form action="/jobs/delete/<%= job._id %>" method="POST" style="display:inline;">
+                                    <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this job?');">Delete</button>
+                                </form>
+                            </div>                            
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
 
     </div>
 </body>
