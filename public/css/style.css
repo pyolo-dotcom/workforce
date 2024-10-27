@@ -156,50 +156,65 @@ h2, h3 {
 
 /* Founders Section */
 .founders-section {
-    padding: 40px 20px;
-    text-align: center;
+    padding: 40px 20px; /* Space around the section */
+    background-color: #f9f9f9; /* Light background color */
+    border-radius: 8px; /* Rounded corners */
+    text-align: center; /* Center text alignment */
 }
 
 .founder-text {
     color: black; /* Black text for the description */
-    font-size: 20px;
-    margin-bottom: 10px;
+    font-size: 20px; /* Original size retained */
+    line-height: 1.6; /* Improved line height for readability */
+    margin-bottom: 20px; /* Space below the text */
+    padding: 0 20px; /* Side padding for text */
 }
 
 .founder-title {
-    color: black; /* Black text for "FOUNDER" */
-    font-size: 24px;
-    margin-bottom: 20px;
+    color: #007BFF; /* Primary color for emphasis */
+    font-size: 24px; /* Original size retained */
+    margin-bottom: 20px; /* Space below the title */
 }
 
 .founders {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+    display: flex; /* Use flexbox for layout */
+    justify-content: center; /* Center the founder cards */
+    gap: 30px; /* Space between the cards */
 }
 
 .founder {
-    text-align: center;
-    max-width: 300px;
-    margin: 100px;
+    background-color: #fff; /* White background for each founder */
+    padding: 20px; /* Padding inside the founder box */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    text-align: center; /* Center text alignment */
+    max-width: 300px; /* Maintain max width */
+    margin: 100px; /* Maintain margin */
 }
 
-/* Increase the size of the CEO and President's images */
 .founder img {
-    width: 250px; /* Increased width */
-    height: 250px; /* Increased height */
-    border-radius: 50%; /* Keep the image circular */
-    object-fit: cover;
+    width: 250px; /* Keep the original image width */
+    height: 250px; /* Keep the original image height */
+    border-radius: 50%; /* Circular image */
+    object-fit: cover; /* Crop image to cover */
 }
 
 .founder h4 {
-    margin: 10px 0;
-    font-size: 20px;
+    margin: 10px 0; /* Space above and below the name */
+    font-size: 20px; /* Original size retained */
+    color: #555; /* Medium dark color for the name */
 }
 
 .founder p {
-    font-size: 14px;
-    color: #666;
+    font-size: 14px; /* Original size retained */
+    color: #666; /* Light color for position */
+}
+
+.founder-about {
+    font-size: 38px; /* Increase the font size */
+    font-weight: bold; /* Make the text bold */
+    color: #28a745; /* Dark gray color for better contrast */
+    margin-bottom: 20px; /* Add space below the heading */
 }
 
 .review-container {
