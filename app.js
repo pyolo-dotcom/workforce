@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const path = require('path'); // Add path module to serve the uploads folder
 const multer = require('multer'); // Add multer for file upload handling
+const passport = require('passport'); // Import Passport
+const LocalStrategy = require('passport-local').Strategy; // Import Local Strategy
 const User = require('./models/User');
 const homeRoutes = require('./routes/homeRoutes');
 const Job = require('./models/Job'); // Import Job model (make sure it's defined in ./models/Job)
@@ -13,6 +15,7 @@ const job = require('./routes/job');
 const app = express();
 const PORT = 3000;
 
+// Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/workforceDB', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -25,7 +28,6 @@ mongoose.connect('mongodb://localhost:27017/workforceDB', {
     console.error('MongoDB connection error:', err); // Log connection errors
 });
 
-
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
@@ -34,6 +36,10 @@ app.use(session({
     saveUninitialized: false,
 }));
 
+// Initialize Passport.js
+app.use(passport.initialize());
+app.use(passport.session());
+
 // Serve static files from the 'public' and 'uploads' folder
 app.use(express.static('public'));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Serve uploaded images
@@ -41,10 +47,9 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Serve u
 // Set EJS as the template engine
 app.set('view engine', 'ejs');
 
-app.use('/jobs', job); // Use the job router for job-related routes
-
 // Use the routes defined in homeRoutes.js
 app.use('/', homeRoutes);
+app.use('/jobs', job); // Use the job router for job-related routes
 
 // Multer configuration for file uploads
 const storage = multer.diskStorage({
@@ -83,6 +88,38 @@ app.post('/addJob', upload.single('image'), async (req, res) => {
     }
 });
 
+// Passport local strategy for authentication
+passport.use(new LocalStrategy(
+    async (username, password, done) => {
+        try {
+            const user = await User.findOne({ username }); // Adjust as necessary
+            if (!user) {
+                return done(null, false, { message: 'Incorrect username.' });
+            }
+            const isMatch = await bcrypt.compare(password, user.password);
+            if (!isMatch) {
+                return done(null, false, { message: 'Incorrect password.' });
+            }
+            return done(null, user);
+        } catch (error) {
+            return done(error);
+        }
+    }
+));
+
+// Passport serialization and deserialization
+passport.serializeUser((user, done) => {
+    done(null, user.id); // Store user ID in session
+});
+
+passport.deserializeUser(async (id, done) => {
+    try {
+        const user = await User.findById(id);
+        done(null, user); // Attach user object to request
+    } catch (error) {
+        done(error);
+    }
+});
 
 // Function to create an admin account
 async function createAdminAccount() {

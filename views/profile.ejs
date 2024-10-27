@@ -1,7 +1,13 @@
-/* header.css */
-
-/* General Styling for Poppins */
-body, h1, h2, h3, h4, h5, h6, p, a, span, li, button, input, textarea {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/profile.css">
+    <title>User Profile</title>
+<style>
+    body, h1, h2, h3, h4, h5, h6, p, a, span, li, button, input, textarea {
     font-family: 'Poppins', sans-serif;
 }
 
@@ -123,32 +129,55 @@ nav ul li a:hover {
     display: block; /* Show dropdown when toggled */
 }
 
-/* Button styles */
-.apply-btn, .btn {
-    background-color: #6BA6CF;
-    color: white;
-    padding: 10px 40px; /* Adjust padding for a longer button */
-    border-radius: 50px; /* Rounded, pill-like button */
-    text-decoration: none;
-    position: relative; /* Necessary for positioning the arrow */
-    transition: background-color 0.3s; /* Smooth color transition */
-    font-family: 'Poppins', sans-serif; /* Apply Poppins to buttons */
-}
+</style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <img src="/images/logo.png" alt="Company Logo" class="logo-img">
+                <h1>Workforce International Inc.</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#jobs">Work</a></li>
+                    <li><a href="#founder">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li class="profile">
+                        <img src="/images/profile.png" alt="Profile" class="profile-pic" onclick="toggleDropdown()">
+                        <div class="dropdown" id="dropdownMenu">
+                            <a href="/profile">Profile</a> <!-- Redirects to Profile Page -->
+                            <a href="#" onclick="showNotifications()">Notifications</a>
+                            <a href="#" onclick="logout()">Logout</a>
+                        </div>
+                    </li>                    
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-/* Arrow for Apply Us Button */
-.apply-btn::after, .btn::after {
-    content: '→'; /* Right arrow character */
-    position: absolute;
-    right: 15px; /* Position the arrow at the end of the button */
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 18px; /* Adjust the arrow size */
-    color: white; /* Arrow color */
-}
+    <main>
+        <h2>User Profile</h2>
+        <div class="profile-info">
+            <img src="/images/profile.png" alt="Profile Picture" class="profile-pic">
+            <h3>Username: <%= user.username %></h3>
+            <p>Email: <%= user.email %></p>
+            <p>Role: <%= user.role %></p>
+            <!-- Add more user info as needed -->
+        </div>
+    </main>
 
-/* Button hover state */
-.apply-btn:hover, .btn:hover {
-    background-color: #5a9bcf; /* Darker shade on hover */
-    /* No change in shape here */
-    border-radius: 50px; /* Maintain the rounded shape */
-}
+    <script>
+        function toggleDropdown() {
+            const dropdown = document.getElementById("dropdownMenu");
+            dropdown.classList.toggle("show");
+        }
+
+        function logout() {
+            history.replaceState(null, '', '/'); // Redirect to home or desired page
+            window.location.href = '/'; // Navigate to the home page after logging out
+        }
+    </script>
+</body>
+</html>

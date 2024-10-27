@@ -6,24 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/header.css">
     <title>Header</title>
-    <script>
-        function logout() {
-            // Clear user data (localStorage/sessionStorage)
-            sessionStorage.clear(); // Use localStorage.clear() if you use localStorage
-
-            // Redirect to the login page
-            window.location.href = '/login'; // Update with your actual login page URL
-            
-            // Prevent access to the previous page
-            setTimeout(() => {
-                // Replace current history entry to prevent going back to the account page
-                window.history.pushState(null, '', window.location.href);
-                window.onpopstate = function () {
-                    window.history.pushState(null, '', window.location.href);
-                };
-            }, 0);
-        }
-    </script>
 </head>
 <body>
     <header>
@@ -38,10 +20,29 @@
                     <li><a href="#jobs">Work</a></li>
                     <li><a href="#founder">About</a></li>
                     <li><a href="#contact">Contact</a></li>
-                    <li><a href="#" class="apply-btn" onclick="logout()">Logout</a></li>
+                    <li class="profile">
+                        <img src="/images/profile.png" alt="Profile" class="profile-pic" onclick="toggleDropdown()">
+                        <div class="dropdown" id="dropdownMenu">
+                            <a href="/profile">Profile</a> <!-- Added Profile Link -->
+                            <a href="#" onclick="showNotifications()">Notifications</a>
+                            <a href="#" onclick="logout()">Logout</a>
+                        </div>
+                    </li>                    
                 </ul>
             </nav>
         </div>
     </header>
+
+    <script>
+        function toggleDropdown() {
+            const dropdown = document.getElementById("dropdownMenu");
+            dropdown.classList.toggle("show");
+        }
+
+        function logout() {
+            history.replaceState(null, '', '/'); // Redirect to home or desired page
+            window.location.href = '/'; // Navigate to the home page after logging out
+        }
+    </script>
 </body>
 </html>

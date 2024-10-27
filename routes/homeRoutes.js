@@ -10,6 +10,14 @@ const formRoutes = require('./form'); // Make sure this path is correct
 
 router.use(formRoutes);
 
+// Authentication middleware
+function isAuthenticated(req, res, next) {
+    if (req.session.user) { // Check if user is stored in session
+        return next();
+    }
+    res.redirect('/login'); // Redirect to login if not authenticated
+}
+
 // Route for home page
 router.get('/', async (req, res) => {
     try {
@@ -59,7 +67,6 @@ router.post('/login', async (req, res) => {
     }
 });
 
-
 // Route for sign-up page
 router.get('/signup', (req, res) => {
     res.render('signup'); // Render the sign-up page
@@ -99,13 +106,7 @@ router.post('/signup', async (req, res) => {
 });
 
 // Route for user dashboard (ensure user is authenticated)
-router.get('/userdashboard', async (req, res) => {
-    // Check if user is logged in
-    if (!req.session.user) {
-        req.session.errorMessage = 'You must be logged in to access the dashboard'; // Set error message
-        return res.redirect('/login'); // Redirect to login page if not authenticated
-    }
-
+router.get('/userdashboard', isAuthenticated, async (req, res) => {
     try {
         const jobs = await Job.find(); // Fetch jobs from the database
         // If the user is logged in, render the dashboard
@@ -116,13 +117,13 @@ router.get('/userdashboard', async (req, res) => {
     }
 }); 
 
-router.get('/admindashboard', async (req, res) => {
+router.get('/admindashboard', isAuthenticated, async (req, res) => {
     try {
         // Count the total number of users
         const totalUsers = await User.countDocuments({});
         
         // Count the total number of jobs
-        const totalJobs = await Job.countDocuments({}); // Add this line to count total jobs
+        const totalJobs = await Job.countDocuments(); // Add this line to count total jobs
         
         // Pass the total user count and total job count to the EJS template
         res.render('admindashboard', { totalUsers, totalJobs }); // Pass both values
@@ -132,17 +133,15 @@ router.get('/admindashboard', async (req, res) => {
     }
 });
 
-
-
-router.get('/appointment', (req, res) => {
+router.get('/appointment', isAuthenticated, (req, res) => {
     res.render('appointment'); // Render the admin dashboard view
 });
 
-router.get('/message', (req, res) => {
+router.get('/message', isAuthenticated, (req, res) => {
     res.render('message'); // Render the admin dashboard view
 });
 
-router.get('/history', (req, res) => {
+router.get('/history', isAuthenticated, (req, res) => {
     res.render('history'); // Render the admin dashboard view
 });
 
@@ -157,7 +156,7 @@ router.get('/jobs', async (req, res) => {
     }
 });
 
-
+// Add the form route
 router.get('/form', async (req, res) => {
     try {
         const jobs = await Job.find(); // Fetch jobs from the database
@@ -166,6 +165,11 @@ router.get('/form', async (req, res) => {
         console.error('Error fetching jobs:', error);
         res.status(500).send('Internal Server Error');
     }
+});
+
+// Profile route, protected by authentication middleware
+router.get('/profile', isAuthenticated, (req, res) => {
+    res.render('profile', { user: req.session.user }); // Pass user info to the profile view
 });
 
 module.exports = router;
