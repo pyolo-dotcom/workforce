@@ -365,6 +365,7 @@ h2, h3 {
 }
 
 .modal-content {
+    color: black;
     background-color: #fefefe;
     margin: 15% auto;
     padding: 20px;
@@ -384,4 +385,21 @@ h2, h3 {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+/* Button styles */
+.btn {
+    padding: 10px 20px;
+    background-color: #007bff; /* Adjust as needed */
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    outline: none; /* Removes the outline */
+}
+
+.btn:focus,
+.btn:active {
+    outline: none; /* Ensures no outline when focused or active */
+    box-shadow: none; /* Removes any shadow that could appear */
 }

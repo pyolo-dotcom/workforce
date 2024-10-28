@@ -18,7 +18,7 @@
                     <p><%= job.location %></p>
                     <a href="/login" class="btn">Apply Now</a>
                     <!-- View button to open the modal -->
-                    <button class="btn" data-job-description="<%= job.description %>">View</button>
+                    <button class="btn view-btn" data-job-description="<%= job.description %>">View</button>
                 </div>
             <% }) %>
         <% } else { %>
@@ -39,32 +39,32 @@
 </section>
 
 <script>
-// JavaScript to handle the modal functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const viewButtons = document.querySelectorAll('.view-btn');
-    const modal = document.getElementById('jobModal');
-    const closeButton = document.querySelector('.close-button');
-
-    viewButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const jobDescription = this.getAttribute('data-job-description');
-            // Populate the modal with the job description
-            document.getElementById('modal-body').innerHTML = `<p>${jobDescription}</p>`;
-            modal.style.display = 'block';
+    // JavaScript to handle the modal functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const viewButtons = document.querySelectorAll('.view-btn');
+        const modal = document.getElementById('jobModal');
+        const closeButton = document.querySelector('.close-button');
+    
+        viewButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const jobDescription = this.getAttribute('data-job-description');
+                // Populate the modal with the job description
+                document.getElementById('modal-body').innerHTML = `<p>${jobDescription}</p>`;
+                modal.style.display = 'block';
+            });
+        });
+    
+        closeButton.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+    
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
         });
     });
-
-    closeButton.addEventListener('click', function() {
-        modal.style.display = 'none';
-    });
-
-    window.addEventListener('click', function(event) {
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
-});
-</script>
+    </script>
 
 
 
@@ -88,24 +88,21 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
 </section>
 
-
-
 <!-- Reviews Section -->
 <div class="review-container">
     <div class="review-box">
-        <p class="email">customer1@gmail.com</p>
+        <p class="email">Melisa@gmail.com</p>
         <p class="review-text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </p>
+            Melisa was amazing with our kids—reliable, caring, and always engaged. Sending her abroad was tough, but we know she’ll be just as wonderful with her next family!            </p>
         <div class="rating">
             ★★★★★
         </div>
     </div>
     
     <div class="review-box">
-        <p class="email">customer2@gmail.com</p>
+        <p class="email">John@gmail.com</p>
         <p class="review-text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            John was an excellent factory worker—punctual, hardworking, and focused. He consistently met targets and worked well with the team. Highly recommended!
         </p>
         <div class="rating">
             ★★★★★
@@ -113,20 +110,18 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
 
     <div class="review-box">
-        <p class="email">customer3@gmail.com</p>
+        <p class="email">Paul@gmail.com</p>
         <p class="review-text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </p>
+            Paul is an exceptional caregiver—kind, attentive, and highly dependable. He provides compassionate care and always goes the extra mile to ensure comfort and well-being. Highly recommended!            </p>
         <div class="rating">
             ★★★★★
         </div>
     </div>
 
     <div class="review-box">
-        <p class="email">customer4@gmail.com</p>
+        <p class="email">Abraham@gmail.com</p>
         <p class="review-text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </p>
+            Abraham is an outstanding welder—skilled, reliable, and detail-oriented. His work is consistently top-notch, and he meets deadlines with ease. Highly recommended for any welding projects!            </p>
         <div class="rating">
             ★★★★★
         </div>
@@ -159,18 +154,32 @@ document.addEventListener('DOMContentLoaded', function() {
             
         </div>        
         <div class="contact-form">
-            <form>
+            <form id="contactForm">
                 <h3>Send us a message</h3>
                 <label for="name">Name</label>
-                <input type="text" id="name" name="name">
+                <input type="text" id="name" name="name" required>
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email">
+                <input type="email" id="email" name="email" required>
                 <label for="subject">Subject</label>
-                <input type="text" id="subject" name="subject">
+                <input type="text" id="subject" name="subject" required>
                 <label for="message">Message</label>
-                <textarea id="message" name="message"></textarea>
+                <textarea id="message" name="message" required></textarea>
                 <button type="submit">SUBMIT</button>
             </form>
         </div>
+        
+        <script>
+            document.getElementById('contactForm').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the form from submitting
+        
+                // Show alert message
+                alert('Please login to submit a message.');
+        
+                // Redirect to login.ejs
+                window.location.href = '/login'; // Adjust the URL as necessary
+            });
+        </script>
+        
+        
     </div>
 </section>

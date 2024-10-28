@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/userdashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <title>Workforce International Inc.</title>
 </head>
 <body>
@@ -17,10 +18,6 @@
             <h2>Your Gateway to Global Careers Without Added Hassle</h2>
             <p>Workforce International Inc. has been helping people achieve their dreams of working abroad since 2016. We simplify the process, so you can focus on building your future with confidence.</p>
             <a href="/login" class="btn">Apply Now</a>
-        </div>
-        <div class="user-welcome">
-            <h1>Welcome, <%= user.username %>!</h1>
-            <p>Email: <%= user.email %></p>
         </div>
     </section>       
      
@@ -107,19 +104,18 @@
     <!-- Reviews Section -->
     <div class="review-container">
         <div class="review-box">
-            <p class="email">customer1@gmail.com</p>
+            <p class="email">Melisa@gmail.com</p>
             <p class="review-text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
+                Melisa was amazing with our kids—reliable, caring, and always engaged. Sending her abroad was tough, but we know she’ll be just as wonderful with her next family!            </p>
             <div class="rating">
                 ★★★★★
             </div>
         </div>
         
         <div class="review-box">
-            <p class="email">customer2@gmail.com</p>
+            <p class="email">John@gmail.com</p>
             <p class="review-text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                John was an excellent factory worker—punctual, hardworking, and focused. He consistently met targets and worked well with the team. Highly recommended!
             </p>
             <div class="rating">
                 ★★★★★
@@ -127,20 +123,18 @@
         </div>
     
         <div class="review-box">
-            <p class="email">customer3@gmail.com</p>
+            <p class="email">Paul@gmail.com</p>
             <p class="review-text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
+                Paul is an exceptional caregiver—kind, attentive, and highly dependable. He provides compassionate care and always goes the extra mile to ensure comfort and well-being. Highly recommended!            </p>
             <div class="rating">
                 ★★★★★
             </div>
         </div>
     
         <div class="review-box">
-            <p class="email">customer4@gmail.com</p>
+            <p class="email">Abraham@gmail.com</p>
             <p class="review-text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
+                Abraham is an outstanding welder—skilled, reliable, and detail-oriented. His work is consistently top-notch, and he meets deadlines with ease. Highly recommended for any welding projects!            </p>
             <div class="rating">
                 ★★★★★
             </div>
@@ -173,19 +167,56 @@
                 
             </div>        
             <div class="contact-form">
-                <form>
+                <form id="contactForm">
                     <h3>Send us a message</h3>
                     <label for="name">Name</label>
-                    <input type="text" id="name" name="name">
+                    <input type="text" id="name" name="name" required>
                     <label for="email">Email</label>
-                    <input type="email" id="email" name="email">
+                    <input type="email" id="email" name="email" required>
                     <label for="subject">Subject</label>
-                    <input type="text" id="subject" name="subject">
+                    <input type="text" id="subject" name="subject" required>
                     <label for="message">Message</label>
-                    <textarea id="message" name="message"></textarea>
+                    <textarea id="message" name="message" required></textarea>
                     <button type="submit">SUBMIT</button>
                 </form>
             </div>
+            
+            <!-- JavaScript to handle form submission -->
+            <script>
+                document.getElementById('contactForm').addEventListener('submit', async function(event) {
+                    event.preventDefault(); // Prevent the default form submission
+            
+                    const formData = {
+                        name: document.getElementById('name').value,
+                        email: document.getElementById('email').value,
+                        subject: document.getElementById('subject').value,
+                        message: document.getElementById('message').value
+                    };
+            
+                    try {
+                        const response = await fetch('/api/messages', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(formData)
+                        });
+            
+                        const result = await response.json();
+                        if (response.ok) {
+                            alert(result.message); // Show success message
+                            // Optionally reset the form fields
+                            document.getElementById('contactForm').reset();
+                        } else {
+                            alert('Error: ' + result.message); // Show error message
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('Error sending message. Please try again later.');
+                    }
+                });
+            </script>
+            
         </div>
     </section>
 

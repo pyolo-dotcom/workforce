@@ -5,6 +5,7 @@ const formSchema = new mongoose.Schema({
     firstName: String,
     middleName: String,
     dob: Date,
+    time: String, // New field to store the time
     maritalStatus: String,
     gender: String,
     mobilePhone: String,

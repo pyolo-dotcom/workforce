@@ -66,6 +66,7 @@ nav ul {
     padding: 0;
     display: flex;
     justify-content: flex-end; /* Align menu items to the right */
+    align-items: center; /* Vertically center the menu items */
 }
 
 nav ul li {
@@ -98,12 +99,13 @@ nav ul li a:hover {
     border-radius: 50%;
 }
 
+/* Dropdown menu positioning */
 .dropdown {
     display: none; /* Hidden by default */
     position: absolute;
     top: 50px; /* Adjust based on your layout */
     right: 0;
-    background-color: white; /* Change to your desired color */
+    background-color: white;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
@@ -112,16 +114,17 @@ nav ul li a:hover {
     display: block;
     padding: 10px 20px;
     text-decoration: none;
-    color: black; /* Change to your desired color */
+    color: black;
 }
 
 .dropdown a:hover {
-    background-color: #f1f1f1; /* Change to your desired hover color */
+    background-color: #f1f1f1;
 }
 
 .dropdown.show {
     display: block; /* Show dropdown when toggled */
 }
+
 
 /* Button styles */
 .apply-btn, .btn {

@@ -18,7 +18,7 @@ const upload = multer({ storage: storage });
 // Handle form submission
 router.post('/submit-form', upload.single('resume'), async (req, res) => {
     try {
-        const { lastName, firstName, middleName, dob, maritalStatus, gender, mobilePhone, job } = req.body;
+        const { lastName, firstName, middleName, dob, time, maritalStatus, gender, mobilePhone, job } = req.body;
         
         // Ensure job is defined
         if (!job) {
@@ -37,6 +37,7 @@ router.post('/submit-form', upload.single('resume'), async (req, res) => {
             firstName,
             middleName,
             dob,
+            time, // Include the time field
             maritalStatus,
             gender,
             mobilePhone,

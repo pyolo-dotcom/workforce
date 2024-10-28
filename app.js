@@ -11,6 +11,8 @@ const User = require('./models/User');
 const homeRoutes = require('./routes/homeRoutes');
 const Job = require('./models/Job'); // Import Job model (make sure it's defined in ./models/Job)
 const job = require('./routes/job');
+const Message = require('./models/Message');
+const Form = require('./models/Form'); // Correct path
 
 const app = express();
 const PORT = 3000;
@@ -28,7 +30,8 @@ mongoose.connect('mongodb://localhost:27017/workforceDB', {
     console.error('MongoDB connection error:', err); // Log connection errors
 });
 
-// Middleware
+// 
+app.use(bodyParser.json()); // For parsing application/json
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
     secret: 'your_secret_key',
@@ -51,39 +54,35 @@ app.set('view engine', 'ejs');
 app.use('/', homeRoutes);
 app.use('/jobs', job); // Use the job router for job-related routes
 
-// Multer configuration for file uploads
+// Configure multer for file uploads
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads'); // Store uploaded files in 'uploads' directory
+    destination: function (req, file, cb) {
+        cb(null, 'public/images'); // Save to public/images directory
     },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + '-' + file.originalname); // Generate unique filenames
+    filename: function (req, file, cb) {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, uniqueSuffix + path.extname(file.originalname)); // Use unique filename
     }
 });
 const upload = multer({ storage: storage });
 
-// Route to render the add job form (addJob.ejs)
-app.get('/addJob', (req, res) => {
-    res.render('addJob');
-});
-
-// In your POST route for adding a job
-app.post('/addJob', upload.single('image'), async (req, res) => {
+// Route for updating the profile picture
+app.post('/profile', upload.single('profilePicture'), async (req, res) => {
     try {
-        const { title, location, description } = req.body;
-        const image = req.file ? `/uploads/${req.file.filename}` : null;
+        if (!req.file) {
+            return res.status(400).send('No file uploaded.');
+        }
 
-        const newJob = new Job({
-            title,
-            location,
-            description, // Add description here
-            image // Add image here
-        });
+        // Update the user profile picture in the database
+        const userId = req.session.user._id; // Get the user ID from the session
+        const profilePicturePath = '/images/' + req.file.filename; // Path to the uploaded file
 
-        await newJob.save();
-        res.redirect('/jobs');
+        await User.findByIdAndUpdate(userId, { profilePicture: profilePicturePath }); // Update user document
+
+        // Redirect back to the profile page
+        res.redirect('/profile'); 
     } catch (error) {
-        console.error('Error adding job:', error);
+        console.error('Error updating profile picture:', error);
         res.status(500).send('Internal Server Error');
     }
 });
@@ -145,6 +144,60 @@ async function createAdminAccount() {
         console.error('Error creating admin account:', error);
     }
 }
+
+app.post('/api/messages', async (req, res) => {
+    console.log(req.body); // Log the incoming request body
+
+    const { name, email, subject, message } = req.body;
+
+    const newMessage = new Message({ name, email, subject, message });
+
+    try {
+        await newMessage.save(); // Save the message to the database
+        res.status(201).json({ success: true, message: 'Message sent successfully.' });
+    } catch (error) {
+        console.error("Error details:", error); // This will include validation errors
+        if (error.name === 'ValidationError') {
+            return res.status(400).json({ success: false, message: error.message });
+        }
+        res.status(500).json({ success: false, message: 'Error sending message.' });
+    }    
+});
+
+// Route to get messages
+app.get('/api/messages', async (req, res) => {
+    try {
+        const messages = await Message.find(); // Fetch all messages
+        res.status(200).json(messages); // Send messages as a response
+    } catch (error) {
+        console.error("Error fetching messages:", error);
+        res.status(500).json({ message: 'Error fetching messages.' });
+    }
+});
+
+app.post('/api/messages/:id/:action', async (req, res) => {
+    const { id, action } = req.params;
+    try {
+        // Logic to update the message in the database
+        const updatedMessage = await Message.updateOne({ _id: id }, { $set: { isReviewed: true, status: action } });
+        res.status(200).send(updatedMessage);
+    } catch (error) {
+        res.status(500).send('Error updating message status');
+    }
+});
+
+
+// Route to fetch notifications
+app.get('/api/notifications', async (req, res) => {
+    try {
+        const notifications = await Notification.find({}); // Fetch all notifications
+        res.json(notifications); // Return notifications as JSON
+    } catch (error) {
+        console.error('Error fetching notifications:', error);
+        res.status(500).send('Error fetching notifications'); // Send error response
+    }
+});
+
 
 // Start the server
 app.listen(PORT, () => {

@@ -46,23 +46,6 @@ h2, h3 {
     text-align: left; /* Aligns text to the left */
 }
 
-.user-welcome {
-    text-align: left; /* Aligns text to the right */
-    margin-right: 50px; /* Adds space from the right */
-    margin-bottom: 200px;
-}
-
-/* Additional styles for welcome message */
-.user-welcome h1 {
-    font-size: 36px;
-    color: rgb(103, 206, 24); /* Keep this color consistent */
-}
-
-.user-welcome p {
-    font-size: 18px;
-    margin-top: 10px; /* Adds space above the paragraph */
-}
-
 /* Add arrow to the Apply Now button */
 .btn {
     position: relative;
@@ -401,4 +384,21 @@ h2, h3 {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+/* Button styles */
+.btn {
+    padding: 10px 20px;
+    background-color: #007bff; /* Adjust as needed */
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    outline: none; /* Removes the outline */
+}
+
+.btn:focus,
+.btn:active {
+    outline: none; /* Ensures no outline when focused or active */
+    box-shadow: none; /* Removes any shadow that could appear */
 }

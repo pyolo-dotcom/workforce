@@ -2,12 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/profile.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-    <title>User Profile</title>
-<style>
+    <title>Notification</title>
+    <style>
 body, h1, h2, h3, h4, h5, h6, p, a, span, li, button, input, textarea {
     font-family: 'Poppins', sans-serif;
 }
@@ -132,81 +130,27 @@ nav ul li a:hover {
     display: block; /* Show dropdown when toggled */
 }
 
-/* Profile Page Styling */
-main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    font-family: 'Poppins', sans-serif;
-    background-color: #f8f9fa;
-    min-height: 100vh;
-}
+table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    
+    th, td {
+        padding: 10px;
+        text-align: left;
+        border: 1px solid #ddd; /* Add border to cells */
+    }
 
-main h1 {
-    font-size: 2em;
-    color: #333;
-    margin-bottom: 20px;
-}
+    th {
+        background-color: #f4f4f4; /* Light gray background for header */
+    }
 
-main div {
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    max-width: 400px;
-    width: 100%;
-}
-
-main div img {
-    border-radius: 50%;
-    margin-bottom: 20px;
-    border: 3px solid #6BA6CF;
-}
-
-main h2 {
-    font-size: 1.5em;
-    color: #444;
-    margin: 10px 0;
-}
-
-main p {
-    font-size: 1em;
-    color: #777;
-    margin-bottom: 20px;
-}
-
-/* Form Styling */
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-form input[type="file"] {
-    margin-bottom: 15px;
-    padding: 10px;
-    font-size: 1em;
-    cursor: pointer;
-}
-
-form button {
-    background-color: #6BA6CF;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 1em;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-form button:hover {
-    background-color: #5a9bcf;
-}
-
-</style>
+    .actions {
+        display: flex; /* Align actions in a row */
+        gap: 10px; /* Space between buttons */
+    }
+    </style>
 </head>
 <body>
     <header>
@@ -225,7 +169,7 @@ form button:hover {
                         <img src="<%= user.profilePicture %>" alt="Profile" class="profile-pic" onclick="toggleDropdown()">
                         <div class="dropdown" id="dropdownMenu">
                             <a href="/profile">Profile</a> <!-- Redirects to Profile Page -->
-                            <a href="/notification" onclick="showNotifications()">Notifications</a>
+                            <a href="#" onclick="showNotifications()">Notifications</a>
                             <a href="#" onclick="logout()">Logout</a>
                         </div>
                     </li>                    
@@ -233,31 +177,71 @@ form button:hover {
             </nav>
         </div>
     </header>
-
-    <main>
-        <h1>User Profile</h1>
-        <div>
-            <img src="<%= user.profilePicture %>" alt="Profile Picture" style="width: 100px; height: 100px;">
-            <h2><%= user.username %></h2>
-            <p>Email: <%= user.email %></p>
-            <form action="/profile" method="POST" enctype="multipart/form-data">
-                <input type="file" name="profilePicture" required>
-                <button type="submit">Upload Profile Picture</button>
-            </form>
-        </div>
-    </main>
     
-
+    <div class="content">
+        <h2>Your Notifications</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Subject</th>
+                    <th>Message</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Messages will be displayed here -->
+            </tbody>
+        </table>
+    </div>
+    
     <script>
-        function toggleDropdown() {
-            const dropdown = document.getElementById("dropdownMenu");
-            dropdown.classList.toggle("show");
-        }
-
-        function logout() {
-            history.replaceState(null, '', '/'); // Redirect to home or desired page
-            window.location.href = '/'; // Navigate to the home page after logging out
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch('/api/messages'); // Fetch messages from the API
+                const messages = await response.json(); // Parse JSON response
+    
+                const tbody = document.querySelector('tbody'); // Select the table body
+                tbody.innerHTML = ''; // Clear existing content
+    
+                // Loop through each message and create table rows
+                messages.forEach(message => {
+                    const row = document.createElement('tr');
+                    const actionCell = message.isReviewed ? `
+                        <td>${message.status}</td>
+                    ` : `
+                        <td>
+                            <div class="actions">
+                                <button class="btn-decline" onclick="respondToMessage('${message.id}', 'decline')">Decline</button>
+                                <button class="btn-accept" onclick="respondToMessage('${message.id}', 'accept')">Accept</button>
+                            </div>
+                        </td>
+                    `;
+    
+                    row.innerHTML = `
+                        <td>${message.name}</td>
+                        <td>${message.email}</td>
+                        <td>${message.subject}</td>
+                        <td>${message.message}</td>
+                        <td>${!message.isReviewed ? 'Pending' : message.status}</td>
+                    `;
+    
+                    // Append the action cell conditionally based on message review status
+                    row.querySelector('td:last-child').innerHTML = actionCell;
+    
+                    tbody.appendChild(row); // Append the row to the table body
+                });
+            } catch (error) {
+                console.error('Error fetching messages:', error);
+            }
+        });
+    
+        function respondToMessage(messageId, action) {
+            // Implement the logic for accepting or declining the message
+            console.log(`Message ID: ${messageId}, Action: ${action}`);
         }
     </script>
+    
 </body>
 </html>

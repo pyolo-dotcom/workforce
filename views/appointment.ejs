@@ -117,21 +117,35 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Service</th>
+                        <th>Job</th>
                         <th>Name</th>
                         <th>Number</th>
                         <th>Date</th>
                         <th>Time</th>
-                        <th>Message</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td colspan="8" class="no-appointment">No appointment found</td>
-                    </tr>
+                    <% if (appointments.length > 0) { %>
+                        <% appointments.forEach(appointment => { %>
+                            <tr>
+                                <td><%= appointment.job %></td>
+                                <td><%= appointment.firstName %> <%= appointment.middleName %> <%= appointment.lastName %></td>
+                                <td><%= appointment.mobilePhone %></td>
+                                <td><%= new Date(appointment.dob).toLocaleDateString() %></td>
+                                <td><%= appointment.time %></td> <!-- You can add a time field if applicable -->
+                                <td><%= appointment.maritalStatus %></td>
+                                <td><a href="<%= appointment.resume %>" target="_blank">View Resume</a></td>
+                            </tr>
+                        <% }); %>
+                    <% } else { %>
+                        <tr>
+                            <td colspan="8" class="no-appointment">No appointment found</td>
+                        </tr>
+                    <% } %>
                 </tbody>
+                
             </table>
         </div>
     </div>

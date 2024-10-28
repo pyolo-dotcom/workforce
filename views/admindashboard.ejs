@@ -102,6 +102,16 @@
             color: #333;
         }
 
+        .total-appointments-number {
+            font-size: 36px;
+            font-weight: bold;
+            color: #333;
+        }
+        .box h3 {
+            font-size: 20px;
+            color: #333;
+        }
+
         /* Appointment section styling */
         .appointment-section {
             width: 100%; /* Use full width */
@@ -184,7 +194,8 @@
                 <div class="total-jobs-number"><%= totalJobs %></div> <!-- Added a div for total jobs -->
             </div>               
             <div class="box">
-                <h3>Appointment</h3>
+                <h3>Total Appointments</h3>
+                <div class="total-appointments-number"><%= totalAppointments %></div> <!-- Display total appointments -->
             </div>
             <div class="box">
                 <h3>Message</h3>
@@ -229,18 +240,24 @@
         </div>
     </div>
 
-    <!-- JavaScript to create the bar chart -->
     <script>
-                const ctx = document.getElementById('yearlyDataChart').getContext('2d');
+        const ctx = document.getElementById('yearlyDataChart').getContext('2d');
         const yearlyDataChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['2020', '2021', '2022', '2023', '2024'],
+                labels: ['Taiwan', 'Dubai', 'Poland'], // Destinations as labels
                 datasets: [{
-                    label: 'Total Users',
-                    data: [150, 200, 250, 300, 350],
+                    label: 'Total Users (Daily)', // Daily data label
+                    data: [5, 8, 10], // Sample daily data for each destination
                     backgroundColor: 'rgba(54, 162, 235, 0.6)',
                     borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Total Users (Weekly)', // Weekly data label
+                    data: [35, 56, 70], // Sample weekly data for each destination
+                    backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
                     borderWidth: 1
                 }]
             },
@@ -251,11 +268,13 @@
                     x: {
                         title: {
                             display: true,
-                            text: 'Year'
+                            text: 'Destinations'
                         }
                     },
                     y: {
-                        beginAtZero: true,
+                        beginAtZero: false, // Start y-axis from 1 instead of 0
+                        min: 5, // Minimum value for y-axis
+                        max: 30, // Maximum value for y-axis
                         title: {
                             display: true,
                             text: 'User Count'
@@ -264,7 +283,7 @@
                 }
             }
         });
-
     </script>
+    
 </body>
 </html>

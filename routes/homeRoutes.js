@@ -123,26 +123,38 @@ router.get('/admindashboard', isAuthenticated, async (req, res) => {
         const totalUsers = await User.countDocuments({});
         
         // Count the total number of jobs
-        const totalJobs = await Job.countDocuments(); // Add this line to count total jobs
+        const totalJobs = await Job.countDocuments(); // Count total jobs
         
-        // Pass the total user count and total job count to the EJS template
-        res.render('admindashboard', { totalUsers, totalJobs }); // Pass both values
+        // Count the total number of appointments
+        const totalAppointments = await Form.countDocuments(); // If Form is your appointment model
+
+        // Pass the total counts to the EJS template
+        res.render('admindashboard', { totalUsers, totalJobs, totalAppointments }); // Pass all three values
     } catch (error) {
-        console.error('Error fetching total users or jobs:', error);
+        console.error('Error fetching total users, jobs, or appointments:', error);
         res.status(500).send('Internal Server Error');
     }
 });
 
-router.get('/appointment', isAuthenticated, (req, res) => {
-    res.render('appointment'); // Render the admin dashboard view
+
+
+router.get('/appointment', async (req, res) => {
+    try {
+        const appointments = await Form.find(); // Fetch data from the Form model
+        console.log('Appointments:', appointments); // Check the result
+        res.render('appointment', { appointments });
+    } catch (err) {
+        console.error('Error fetching appointments:', err);
+        res.status(500).send("Error fetching appointments");
+    }
 });
 
 router.get('/message', isAuthenticated, (req, res) => {
-    res.render('message'); // Render the admin dashboard view
+    res.render('message'); // Render the message view
 });
 
 router.get('/history', isAuthenticated, (req, res) => {
-    res.render('history'); // Render the admin dashboard view
+    res.render('history'); // Render the history view
 });
 
 // Route to display all jobs
@@ -168,8 +180,45 @@ router.get('/form', async (req, res) => {
 });
 
 // Profile route, protected by authentication middleware
-router.get('/profile', isAuthenticated, (req, res) => {
-    res.render('profile', { user: req.session.user }); // Pass user info to the profile view
+router.get('/profile', isAuthenticated, async (req, res) => {
+    try {
+        const userId = req.session.user._id;
+        const user = await User.findById(userId);
+        res.render('profile', { user }); // Pass user with profilePicture to profile.ejs
+    } catch (error) {
+        console.error('Error fetching user profile:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+// Notification route, protected by authentication middleware
+router.get('/notification', isAuthenticated, async (req, res) => {
+    try {
+        const userId = req.session.user._id;
+        const user = await User.findById(userId);
+        res.render('notification', { user }); // Pass user to notification view
+    } catch (error) {
+        console.error('Error fetching user profile:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+// PATCH route for updating messages
+router.patch('/api/messages/:id', async (req, res) => {
+    const { action } = req.body; // Get the action from the request body
+    const messageId = req.params.id; // Get the message ID from the URL
+
+    try {
+        // Update the message in your database based on action
+        const updatedMessage = await Message.findByIdAndUpdate(messageId, {
+            isReviewed: true,
+            status: action === 'accept' ? 'Accepted' : 'Declined'
+        }, { new: true });
+
+        res.json(updatedMessage);
+    } catch (error) {
+        res.status(500).json({ error: 'Error updating message' });
+    }
 });
 
 module.exports = router;

@@ -21,10 +21,10 @@
                     <li><a href="#founder">About</a></li>
                     <li><a href="#contact">Contact</a></li>
                     <li class="profile">
-                        <img src="/images/profile.png" alt="Profile" class="profile-pic" onclick="toggleDropdown()">
+                        <img src="<%= user.profilePicture %>" alt="Profile" class="profile-pic" onclick="toggleDropdown()">
                         <div class="dropdown" id="dropdownMenu">
                             <a href="/profile">Profile</a> <!-- Added Profile Link -->
-                            <a href="#" onclick="showNotifications()">Notifications</a>
+                            <a href="/notification" onclick="showNotifications()">Notifications</a>
                             <a href="#" onclick="logout()">Logout</a>
                         </div>
                     </li>                    
