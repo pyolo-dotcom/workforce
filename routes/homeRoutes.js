@@ -1,5 +1,5 @@
 const express = require('express');
-const bcrypt = require('bcrypt'); // Ensure bcrypt is required
+const bcrypt = require('bcryptjs'); // Ensure bcrypt is required
 const router = express.Router();
 const User = require('../models/User'); // Ensure User model is required
 const Job = require('../models/Job');
