@@ -100,6 +100,22 @@
         .btn-decline {
             background-color: red;
         }
+        .logout-container {
+            display: flex;
+            justify-content: flex-end; /* Align logout button to the right */
+            margin-bottom: 20px; /* Space below the logout button */
+        }
+        .logout-button {
+            background-color: #f44336; /* Red background color */
+            color: white; /* White text color */
+            padding: 10px 15px; /* Padding for the button */
+            border-radius: 5px; /* Rounded corners */
+            text-decoration: none; /* Remove underline from link */
+            font-weight: bold; /* Bold text */
+        }
+        .logout-button:hover {
+            background-color: #d32f2f; /* Darker red on hover */
+        }
     </style>
 </head>
 <body>
@@ -128,6 +144,7 @@
         document.addEventListener('DOMContentLoaded', async () => {
             try {
                 const response = await fetch('/api/messages'); // Fetch messages from the API
+                if (!response.ok) throw new Error('Network response was not ok');
                 const messages = await response.json(); // Parse JSON response
     
                 const contentDiv = document.querySelector('.content'); // Select the content div
@@ -164,16 +181,18 @@
                     body: JSON.stringify({ action }) // Send the action (accept/decline)
                 });
     
-                if (response.ok) {
-                    // Optionally, you can refresh the message cards or give feedback to the user
-                    location.reload(); // Reload to see updated statuses
-                } else {
-                    console.error('Failed to update message:', response.statusText);
-                }
+                if (!response.ok) throw new Error('Failed to update message');
+    
+                const updatedMessage = await response.json(); // Assuming your API returns the updated message
+                console.log('Message updated successfully:', updatedMessage);
+    
+                // Refresh or update the UI dynamically instead of reloading
+                location.reload(); // Reload to see updated statuses
             } catch (error) {
                 console.error('Error updating message:', error);
             }
         }
+
     </script>
     
 </body>

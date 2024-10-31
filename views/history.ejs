@@ -92,6 +92,26 @@
             color: #555;
             text-align: center;
         }
+
+        .logout-container {
+    display: flex;
+    justify-content: flex-end; /* Align logout button to the right */
+    margin-bottom: 20px; /* Space below the logout button */
+}
+
+.logout-button {
+    background-color: #f44336; /* Red background color */
+    color: white; /* White text color */
+    padding: 10px 15px; /* Padding for the button */
+    border-radius: 5px; /* Rounded corners */
+    text-decoration: none; /* Remove underline from link */
+    font-weight: bold; /* Bold text */
+}
+
+.logout-button:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+}
+
     </style>
 </head>
 <body>
@@ -113,6 +133,9 @@
     </div>
 
     <div class="content">
+        <div class="logout-container">
+            <a href="#" class="logout-button" onclick="logout()">Logout</a> <!-- Logout link -->
+        </div>
         <div class="table-container">
             <h3>History</h3>
             <table>
@@ -135,6 +158,11 @@
             </table>
         </div>
     </div>
-
+    <script>
+        function logout() {
+            history.replaceState(null, '', '/'); // Redirect to home or desired page
+            window.location.href = '/'; // Navigate to the home page after logging out
+        }
+    </script>
 </body>
 </html>

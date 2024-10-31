@@ -158,7 +158,25 @@
             width: 100%; /* Full width of the container */
             height: 300px; /* Set height to 400 pixels */
         }
-        
+
+        .logout-container {
+            display: flex;
+            justify-content: flex-end; /* Align logout button to the right */
+            margin-bottom: 20px; /* Space below the logout button */
+        }
+
+        .logout-button {
+            background-color: #f44336; /* Red background color */
+            color: white; /* White text color */
+            padding: 10px 15px; /* Padding for the button */
+            border-radius: 5px; /* Rounded corners */
+            text-decoration: none; /* Remove underline from link */
+            font-weight: bold; /* Bold text */
+        }
+
+        .logout-button:hover {
+            background-color: #d32f2f; /* Darker red on hover */
+        }
     </style>
     <!-- Include Chart.js library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -184,56 +202,34 @@
 
     <!-- Main Content -->
     <div class="content">
+        <div class="logout-container">
+            <a href="#" class="logout-button" onclick="logout()">Logout</a> <!-- Logout link -->
+        </div>
         <div class="row">
             <div class="box">
                 <h3>Total Users</h3>
                 <div class="total-users-number"><%= totalUsers %></div>
             </div>
             <div class="box">
-                <h3>Total Jobs</h3> <!-- Changed to match structure -->
-                <div class="total-jobs-number"><%= totalJobs %></div> <!-- Added a div for total jobs -->
-            </div>               
+                <h3>Total Jobs</h3>
+                <div class="total-jobs-number"><%= totalJobs %></div>
+            </div>
             <div class="box">
                 <h3>Total Appointments</h3>
-                <div class="total-appointments-number"><%= totalAppointments %></div> <!-- Display total appointments -->
+                <div class="total-appointments-number"><%= totalAppointments %></div>
             </div>
             <div class="box">
                 <h3>Message</h3>
             </div>
         </div>
+        <script>
+            function logout() {
+            history.replaceState(null, '', '/'); // Redirect to home or desired page
+            window.location.href = '/'; // Navigate to the home page after logging out
+        }
+        </script>
 
-        <!-- Appointment Details -->
-        <div class="appointment-section">
-            <div class="appointment-row">
-                <div class="appointment-box">
-                    <h3>Appointment</h3>
-                    <table>
-                        <tr>
-                            <th>Name</th>
-                            <th>Status</th>
-                        </tr>
-                        <tr>
-                            <td>John Doe</td>
-                            <td>Pending</td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="appointment-box">
-                    <h3>Today's Appointment</h3>
-                    <table>
-                        <tr>
-                            <th>Name</th>
-                            <th>Status</th>
-                        </tr>
-                        <tr>
-                            <td>Jane Smith</td>
-                            <td>Confirmed</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </div>
-
+     
         <!-- Chart Section -->
         <div class="chart-container">
             <canvas id="yearlyDataChart"></canvas>
@@ -247,14 +243,14 @@
             data: {
                 labels: ['Taiwan', 'Dubai', 'Poland'], // Destinations as labels
                 datasets: [{
-                    label: 'Total Users (Daily)', // Daily data label
+                    label: 'Total Appointment (Daily)', // Daily data label
                     data: [5, 8, 10], // Sample daily data for each destination
                     backgroundColor: 'rgba(54, 162, 235, 0.6)',
                     borderColor: 'rgba(54, 162, 235, 1)',
                     borderWidth: 1
                 },
                 {
-                    label: 'Total Users (Weekly)', // Weekly data label
+                    label: 'Total Appointment (Weekly)', // Weekly data label
                     data: [35, 56, 70], // Sample weekly data for each destination
                     backgroundColor: 'rgba(255, 99, 132, 0.6)',
                     borderColor: 'rgba(255, 99, 132, 1)',
@@ -277,7 +273,7 @@
                         max: 30, // Maximum value for y-axis
                         title: {
                             display: true,
-                            text: 'User Count'
+                            text: 'Appointment Count'
                         }
                     }
                 }

@@ -189,6 +189,26 @@
             transform: scale(1.05);
             opacity: 0.9;
         }
+
+        .logout-container {
+            display: flex;
+            justify-content: flex-end; /* Align logout button to the right */
+            margin-bottom: 20px; /* Space below the logout button */
+        }
+
+        .logout-button {
+            background-color: #f44336; /* Red background color */
+            color: white; /* White text color */
+            padding: 10px 15px; /* Padding for the button */
+            border-radius: 5px; /* Rounded corners */
+            text-decoration: none; /* Remove underline from link */
+            font-weight: bold; /* Bold text */
+        }
+
+        .logout-button:hover {
+            background-color: #d32f2f; /* Darker red on hover */
+        }
+
     </style>
 </head>
 <body>
@@ -210,8 +230,11 @@
     </div>
 
     <div class="main-content">
+        <div class="logout-container">
+            <a href="#" class="logout-button" onclick="logout()">Logout</a> <!-- Logout link -->
+        </div>
         <!-- Add Job Form -->
-        <h1>Add Job</h1>
+        <h1>ADD JOB</h1>
         <div class="form-container">
             <form action="/addJob" method="POST" enctype="multipart/form-data">
                 <label>Job Title:</label>
@@ -230,8 +253,15 @@
             </form>
         </div>
 
+        <script>
+            function logout() {
+            history.replaceState(null, '', '/'); // Redirect to home or desired page
+            window.location.href = '/'; // Navigate to the home page after logging out
+        }
+        </script>
+
         <!-- Job Listings Table -->
-        <h1>Job Listings</h1>
+        <h1>JOB LISTINGS</h1>
         <table class="job-listing-table">
             <thead>
                 <tr>
