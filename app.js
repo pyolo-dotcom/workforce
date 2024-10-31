@@ -18,7 +18,7 @@ const app = express();
 const PORT = 3000;
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/workforceDB', {
+mongoose.connect('mongodb+srv://dionisiopiolo:RM9zpgm2VZU93SBU@cluster0.r261i.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
